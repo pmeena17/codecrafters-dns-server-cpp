@@ -28,7 +28,7 @@ int main()
 
         // Create dns message header
         dns_message.m_header.packet_id    = htons(1234);
-        dns_message.m_header.qr_indicator = htons(0x8000);
+        dns_message.m_header.flags        = htons(0x8000); // only sets QR = 1, all others are 0
         dns_message.m_header.question_cnt = htons(0);
         dns_message.m_header.ans_rec_cnt  = htons(0);
         dns_message.m_header.auth_rec_cnt = htons(0);

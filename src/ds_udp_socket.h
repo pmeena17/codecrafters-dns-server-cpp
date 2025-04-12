@@ -62,9 +62,7 @@ public:
 
     bool receive_from(sockaddr_in& clientAddress)
     {
-        socklen_t clientAddrLen = sizeof(clientAddress);
-        int bytesRead = recvfrom(this->m_udp_socket, g_buffer, sizeof(g_buffer), 0, reinterpret_cast<struct sockaddr *>(&clientAddress), &clientAddrLen);
-        
+        int bytesRead = recvfrom(this->m_udp_socket, g_buffer, sizeof(g_buffer), 0, reinterpret_cast<struct sockaddr *>(&clientAddress), sizeof(socklen_t(clientAddress)));
         if (bytesRead == -1)
         {
             perror("Error receiving data");
