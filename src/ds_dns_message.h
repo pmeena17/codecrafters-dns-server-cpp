@@ -1,5 +1,4 @@
 #ifdef _WIN32
-#include <winsock.h>
 #include <winsock2.h>
 #include <io.h>
 #define access _access
@@ -8,8 +7,9 @@
 #include <unistd.h>
 #endif
 
-struct dns_header
+class dns_header
 {
+public:
     dns_header()
     {
         packet_id     = htons(1234);

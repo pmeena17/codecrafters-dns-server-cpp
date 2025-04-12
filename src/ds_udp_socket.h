@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cstring>
 #ifdef _WIN32
-#include <winsock.h>
 #include <winsock2.h>
 #include <io.h>
 #define access _access
@@ -71,13 +70,13 @@ public:
         return true;
     }
 
-    // void send_to(message& dns_message, sockaddr_in& clientAddress)
-    // {       
-    //     if (sendto(this->m_udp_socket, reinterpret_cast<char *>(&dns_message.m_header), sizeof(dns_message.m_header), 0, reinterpret_cast<struct sockaddr *>(&clientAddress), sizeof(clientAddress)) == -1)
-    //     {
-    //         perror("Failed to send response");
-    //     }
-    // }
+    void send_to(message& dns_message, sockaddr_in& clientAddress)
+    {       
+        if (sendto(this->m_udp_socket, reinterpret_cast<char *>(&dns_message.m_header), sizeof(dns_message.m_header), 0, reinterpret_cast<struct sockaddr *>(&clientAddress), sizeof(clientAddress)) == -1)
+        {
+            perror("Failed to send response");
+        }
+    }
 
     int m_udp_socket;
 };
