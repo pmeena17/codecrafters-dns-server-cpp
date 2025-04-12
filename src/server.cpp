@@ -29,14 +29,16 @@ int main()
         if (!udp_socket_obj.receive_from(clientAddress))
             break;
 
-        // Create dns message
+        // Create dns message header
+        dns_message.m_header.packet_id    = htons(1234);
+        dns_message.m_header.qr_indicator = htons(0x8000);
+        dns_message.m_header.question_cnt = htons(0);
+        dns_message.m_header.ans_rec_cnt  = htons(0);
+        dns_message.m_header.auth_rec_cnt = htons(0);
+        dns_message.m_header.add_rec_cnt  = htons(0);
 
         // Send response
-        // udp_socket_obj.send_to(dns_message, clientAddress);
-        if (sendto(udp_socket_obj.m_udp_socket, reinterpret_cast<char *>(&dns_message.m_header), sizeof(dns_message.m_header), 0, reinterpret_cast<struct sockaddr *>(&clientAddress), sizeof(clientAddress)) == -1)
-        {
-            perror("Failed to send response");
-        }
+        udp_socket_obj.send_to(dns_message, clientAddress);
     }
 
     close(udp_socket_obj.m_udp_socket);
