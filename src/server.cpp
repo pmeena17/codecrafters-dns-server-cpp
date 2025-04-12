@@ -11,12 +11,9 @@ int main()
     // Disable output buffering
     setbuf(stdout, NULL);
 
-    
     // udp_socket constructor
     udp_socket udp_socket_obj;
     udp_socket_obj.check_validity();
-    // Since the tester restarts your program quite often, setting REUSE_PORT
-    // ensures that we don't run into 'Address already in use' errors
     udp_socket_obj.make_reusable();
     udp_socket_obj.bind_server();
     
@@ -40,8 +37,6 @@ int main()
         // Send response
         udp_socket_obj.send_to(dns_message, clientAddress);
     }
-
-    close(udp_socket_obj.m_udp_socket);
 
     return 0;
 }
